@@ -1,0 +1,15 @@
+---
+en:
+  spree:
+    available_parts: Available parts
+    can_be_part: Can be part
+    individual_sale: Individual sale
+    no_variants: No variants
+    parts: Parts
+    part_quantity_invalid: Part quantity must be a positive integer
+    assembly_cannot_be_part: assembly can't be part
+    product_bundles: Product Bundles
+    parts_included: Parts included
+    part_of_bundle: 'Part of bundle %{sku}'
+    selected_quantity_not_available: Selected quantity not available
+    user_selectable: User Selectable

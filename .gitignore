@@ -1,0 +1,5 @@
+spec/dummy
+Gemfile.lock
+coverage
+.ruby-gemset
+.ruby-version

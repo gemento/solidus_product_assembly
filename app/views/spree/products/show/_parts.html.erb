@@ -1,0 +1,38 @@
+<% if @product.assemblies_parts.any? %>
+<div class="columns">
+  <h6><%= Spree.t(:parts_included) %></h6>
+
+  <ul id="products" class="inline product-listing" data-hook>
+    <% @product.assemblies_parts.each do |part| %>
+      <%- variant = part.part %>
+
+      <li id="product_<%= variant.product.id %>" class="columns three <%= cycle("alpha", "secondary", "", "omega secondary") %>" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
+        <div class="product-image">
+          <%= link_to small_image(variant.product, itemprop: "name"), variant.product %>
+        </div>
+        <%= link_to truncate(variant.product.name, length: 50), variant.product, class: 'info', itemprop: "name", title: variant.product.name %>
+
+        <%- if !variant.in_stock? && !part.variant_selection_deferred? %>
+          <%- if variant.is_backorderable? %>
+            <div class="on-backorder"><%= Spree.t(:backorderable) %></div>
+          <%- else %>
+            <div class="out-of-stock"><%= Spree.t(:out_of_stock) %></div>
+          <%- end %>
+        <%- end %>
+
+        <%- if part.variant_selection_deferred? %>
+          <div class="variant-selection-deferred">
+            <%- product = variant.product %>
+            <%= label_tag "options_selected_variants_#{part.id}", Spree.t(:variant) %>
+
+            <%- opts = product.variants.map { |v| [variant_options(v), v.id] } %>
+            <%- opts_disabled = product.variants.each_with_object([]) { |v, o| o << v.id if !v.in_stock? && !v.is_backorderable? } %>
+
+            <%= select_tag "options[selected_variants][#{part.id}]", options_for_select(opts, disabled: opts_disabled)%>
+          </div>
+        <%- end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<% end %>

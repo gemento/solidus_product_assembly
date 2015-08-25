@@ -1,0 +1,16 @@
+<% product = variant.product %>
+<% if product.assembly? %>
+  <ul class='assembly_parts'>
+    <% line_item.part_line_items.each do |pli| %>
+      <% pli_variant = pli.variant %>
+      <li>
+        (<%= line_item.quantity * pli.quantity %>)
+        <%= link_to pli_variant.name, product_path(pli_variant.product) %>
+        <% unless pli_variant.is_master? %>
+          (<%= pli_variant.options_text %>)
+        <% end %>
+        (<%= pli_variant.sku %>)
+      </li>
+    <% end %>
+  </ul>
+<% end %>
