@@ -1,0 +1,2 @@
+# solidus_product_assembly
+Completely based on spree_product_assembly
